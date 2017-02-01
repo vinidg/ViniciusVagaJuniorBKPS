@@ -12,7 +12,7 @@ public class ClienteDAO {
 		EntityManager entityManager = null;
 
 		try {
-			factory = Persistence.createEntityManagerFactory("persistence.xml");
+			factory = Persistence.createEntityManagerFactory("cadastro_clientes");
 			entityManager = factory.createEntityManager();
 
 		} finally {
