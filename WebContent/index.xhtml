@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" >
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>BKPS</title>
+</h:head>
+<h:body>
+	<h1>Cadastro de Cliente</h1>
+	<h:panelGrid columns="4">
+		<h:commandButton action="cadastrar" value="Cadastrar" />
+		<h:commandButton action="editar" value="Editar" />
+		<h:commandButton action="excluir" value="Excluir" />
+		<h:commandButton action="consultar" value="Consultar" />	
+	</h:panelGrid>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome: " />
+			<h:inputText size="50" maxlength="70" />
+			<h:outputLabel value="Data Nascimento: " />
+			<h:inputText size="20" />
+			<h:outputLabel value="Telefone: " />
+			<h:inputText size="20" maxlength="9" />
+			<h:outputLabel value="Email: " />
+			<h:inputText size="30" maxlength="50" />
+			<h:outputLabel value="Endereço: " />
+			<h:inputText size="70" maxlength="80" />
+			<h:outputLabel value="Cidade: " />
+			<h:inputText size="30" maxlength="20" />
+			<h:outputLabel value="Estado: " />
+			<h:selectOneMenu id="estado" value="#{estados}">		
+					<f:selectItems value="#{estados.codigo}" itemLabel="#{estados.nome}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="4">
+				<h:commandButton value="Inserir" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
