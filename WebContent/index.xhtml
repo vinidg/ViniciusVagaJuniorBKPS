@@ -20,24 +20,24 @@
 	<h:form>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome: " />
-			<h:inputText size="50" maxlength="70" value="#{ICliente.cliente.nome}" />
+			<h:inputText size="50" maxlength="70" value="#{clienteBean.cliente.nome}" />
 			<h:outputLabel value="Data Nascimento: " />
-			<h:inputText size="20" value="#{ICliente.cliente.dataNascimento}" />
+			<h:inputText size="20" value="#{clienteBeancliente.dataNascimento}" />
 			<h:outputLabel value="Telefone: " />
-			<h:inputText size="20" maxlength="9" value="#{ICliente.cliente.telefone}" />
+			<h:inputText size="20" maxlength="9" value="#{clienteBean.cliente.telefone}" />
 			<h:outputLabel value="Email: " />
-			<h:inputText size="30" maxlength="50" value="#{ICliente.cliente.email}" />
+			<h:inputText size="30" maxlength="50" value="#{clienteBean.cliente.email}" />
 			<h:outputLabel value="Endereço: " />
-			<h:inputText size="70" maxlength="80" value="#{ICliente.cliente.endereco}"/>
+			<h:inputText size="70" maxlength="80" value="#{clienteBean.cliente.endereco}"/>
 			<h:outputLabel value="Cidade: " />
-			<h:inputText size="30" maxlength="20" value="#{ICliente.cliente.cidade}" />
+			<h:inputText size="30" maxlength="20" value="#{clienteBean.cliente.cidade}" />
 			<h:outputLabel value="Estado: " />
 			<h:selectOneMenu id="estado" value="">		
-<!-- 					<f:selectItems value="" itemLabel="" /> -->
+ 					<f:selectItems value="SP" itemLabel="SP" /> 
 			</h:selectOneMenu>
 		</h:panelGrid>
 		<h:panelGrid columns="4">
-				<h:commandButton value="Inserir" actionListener="#{ICliente.cadastrar}" />
+				<h:commandButton value="Inserir" actionListener="#{clienteBean.cadastrar}" />
 		</h:panelGrid>
 	</h:form>
 </h:body>

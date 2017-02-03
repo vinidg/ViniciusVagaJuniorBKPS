@@ -1,27 +1,28 @@
 package br.com.Vinicius.VagaJunior.BKPS.Cliente;
 
+import java.sql.SQLException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.transaction.Transactional;
 
 public class ClienteDAO {
 
-	private EntityManager getEntityManager() {
+	private EntityManager getEntityManager() throws SQLException {
 		EntityManagerFactory factory = null;
 		EntityManager entityManager = null;
 
 		try {
-			factory = Persistence.createEntityManagerFactory("cadastro_clientes");
+			factory = Persistence.createEntityManagerFactory("default");
 			entityManager = factory.createEntityManager();
 
-		} finally {
-			factory.close();
-		}
+		}catch (Exception ex) {
+            System.err.println("Erro ao criar a factory: "
+                    + ex);
+        }
 		return entityManager;
 	}
 
-	@Transactional
 	public Cliente cadastrar(Cliente cliente) throws Exception {
 		EntityManager entityManager = getEntityManager();
 
@@ -38,8 +39,8 @@ public class ClienteDAO {
 		return cliente;
 	}
 
-	@Transactional
-	public void excluir(Long id) {
+	
+	public void excluir(Long id) throws SQLException {
 		EntityManager entityManager = getEntityManager();
 		try {
 			entityManager.getTransaction().begin();
@@ -55,7 +56,7 @@ public class ClienteDAO {
 		}
 	}
 	
-	public Cliente consultar(Long id) {
+	public Cliente consultar(Long id) throws SQLException {
 	    EntityManager entityManager = getEntityManager();
 	    
 	    Cliente cliente = null;

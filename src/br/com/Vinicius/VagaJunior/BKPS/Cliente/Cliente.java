@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import br.com.Vinicius.VagaJunior.BKPS.beans.Estados;
 
 @Entity
-@Table(name="tarefas")
+@Table(name="Cliente")
 public class Cliente {
 	
 	@Id
