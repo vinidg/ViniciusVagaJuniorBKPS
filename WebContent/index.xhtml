@@ -11,34 +11,65 @@
 </h:head>
 <h:body>
 	<h1>Cadastro de Cliente</h1>
-	<h:panelGrid columns="4">
-		<h:commandButton action="cadastrar" value="Cadastrar" />
-		<h:commandButton action="editar" value="Editar" />
-		<h:commandButton action="excluir" value="Excluir" />
-		<h:commandButton action="consultar" value="Consultar" />	
-	</h:panelGrid>
 	<h:form>
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Nome: " />
-			<h:inputText size="50" maxlength="70" value="#{clienteBean.cliente.nome}" />
-			<h:outputLabel value="Data Nascimento: " />
-			<h:inputText size="20" value="#{clienteBeancliente.dataNascimento}" />
-			<h:outputLabel value="Telefone: " />
-			<h:inputText size="20" maxlength="9" value="#{clienteBean.cliente.telefone}" />
-			<h:outputLabel value="Email: " />
-			<h:inputText size="30" maxlength="50" value="#{clienteBean.cliente.email}" />
-			<h:outputLabel value="Endereço: " />
-			<h:inputText size="70" maxlength="80" value="#{clienteBean.cliente.endereco}"/>
-			<h:outputLabel value="Cidade: " />
-			<h:inputText size="30" maxlength="20" value="#{clienteBean.cliente.cidade}" />
-			<h:outputLabel value="Estado: " />
-			<h:selectOneMenu id="estado" value="">		
- 					<f:selectItems value="SP" itemLabel="SP" /> 
-			</h:selectOneMenu>
-		</h:panelGrid>
-		<h:panelGrid columns="4">
-				<h:commandButton value="Inserir" actionListener="#{clienteBean.cadastrar}" />
-		</h:panelGrid>
+	<h:panelGrid columns="1">	
+		<p:dataTable value="#{clienteBean.listar}" var="clientes" 
+						paginator="true" rows="10"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " >
+        
+			<p:column headerText="ID">
+	                <h:outputText value="#{clientes.id}" /> 
+			</p:column>
+			<p:column headerText="Nome">
+	                <h:outputText value="#{clientes.nome}" /> 
+			</p:column>
+			<p:column headerText="Data Nascimento">
+	                <h:outputText value="#{clientes.dataNascimento}" /> 
+			</p:column>
+			<p:column headerText="Telefone">
+	                <h:outputText value="#{clientes.telefone}" /> 
+			</p:column>
+			<p:column headerText="Email">
+	                <h:outputText value="#{clientes.email}" /> 
+			</p:column>
+			<p:column headerText="Endereço">
+	                <h:outputText value="#{clientes.endereco}" /> 
+			</p:column>
+			<p:column headerText="Cidade">
+	                <h:outputText value="#{clientes.cidade}" /> 
+			</p:column>
+			<p:column headerText="Estado">
+	                <h:outputText value="#{clientes.estados}" /> 
+			</p:column>
+			<p:column>
+	                <p:commandButton value="Remover" action="#{clienteBean.remover(clientes.id)}" onsuccess="#{clienteBean.listar}" style="width:70px;height:30px;font-size:10px" />
+	                <p:commandButton value="Editar" action="#{clienteBean.consultarPeloId(clientes.id)}" style="width:50px;height:30px;font-size:10px" /> 
+			</p:column>
+        </p:dataTable> 
+        
+	</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:inputText id="nome" size="50" maxlength="70" value="#{clienteBean.cliente.nome}" />
+					<p:outputLabel value="Data Nascimento: " />
+					<p:calendar size="20" value="#{clienteBean.cliente.dataNascimento}" />
+					<p:outputLabel value="Telefone: " />
+					<p:inputText size="20" maxlength="9" value="#{clienteBean.cliente.telefone}" />
+					<p:outputLabel value="Email: " />
+					<p:inputText size="30" maxlength="50" value="#{clienteBean.cliente.email}" />
+					<p:outputLabel value="Endereço: " />
+					<p:inputText size="70" maxlength="80" value="#{clienteBean.cliente.endereco}"/>
+					<p:outputLabel value="Cidade: " />
+					<p:inputText size="30" maxlength="20" value="#{clienteBean.cliente.cidade}" />
+					<p:outputLabel value="Estado: " />
+					<p:selectOneMenu id="estado" value="#{clienteBean.cliente.estados}">
+	 					<f:selectItems var="estado" value="#{clienteBean.estados}" itemValue="#{estado}" itemLabel="#{estado.nome}" />
+					</p:selectOneMenu>
+				<h:panelGrid columns="4">
+						<p:commandButton value="Inserir" action="#{clienteBean.cadastrar}" />
+						<p:commandButton value="Editar" action="#{clienteBean.editar}" />
+				</h:panelGrid>
+			</h:panelGrid>
 	</h:form>
 </h:body>
 </html>

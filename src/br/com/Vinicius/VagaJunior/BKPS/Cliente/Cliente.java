@@ -1,12 +1,11 @@
 package br.com.Vinicius.VagaJunior.BKPS.Cliente;
 
-import java.util.Calendar;
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,19 +14,20 @@ import br.com.Vinicius.VagaJunior.BKPS.beans.Estados;
 
 @Entity
 @Table(name="Cliente")
-public class Cliente {
+public class Cliente implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_cliente")
-	@SequenceGenerator(name = "sq_cliente", sequenceName = "sq_cliente", allocationSize = 1, initialValue = 1)
+	@GeneratedValue
 	private Long id;
 	private String nome;
 	@Temporal(TemporalType.DATE)
-	private Calendar dataNascimento;
+	private Date dataNascimento;
 	private String telefone;
 	private String email;
-	private String Endereco;
-	private String Cidade;
+	private String endereco;
+	private String cidade;
 	private Estados estados;
 	
 	public Long getId() {
@@ -42,12 +42,6 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Calendar getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(Calendar dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
 	public String getTelefone() {
 		return telefone;
 	}
@@ -61,16 +55,16 @@ public class Cliente {
 		this.email = email;
 	}
 	public String getEndereco() {
-		return Endereco;
+		return endereco;
 	}
 	public void setEndereco(String endereco) {
-		Endereco = endereco;
+		this.endereco = endereco;
 	}
 	public String getCidade() {
-		return Cidade;
+		return cidade;
 	}
 	public void setCidade(String cidade) {
-		Cidade = cidade;
+		this.cidade = cidade;
 	}
 	public Estados getEstados() {
 		return estados;
@@ -78,4 +72,15 @@ public class Cliente {
 	public void setEstados(Estados estados) {
 		this.estados = estados;
 	}
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 }

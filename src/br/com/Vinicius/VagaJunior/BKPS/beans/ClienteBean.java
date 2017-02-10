@@ -1,22 +1,90 @@
 package br.com.Vinicius.VagaJunior.BKPS.beans;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.ListDataModel;
+import javax.faces.bean.ViewScoped;
 
 import br.com.Vinicius.VagaJunior.BKPS.Cliente.Cliente;
 import br.com.Vinicius.VagaJunior.BKPS.Cliente.ClienteDAO;
 
 @ManagedBean
-@SessionScoped
-public class ClienteBean implements Serializable{
-	
+@ViewScoped
+public class ClienteBean implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private ListDataModel<Cliente> pegarCliente;
-	private Cliente cliente;
+
+	private List<Cliente> pegarCliente;
+	private Cliente cliente = new Cliente();
+
+	public void cadastrar() {
+
+		ClienteDAO dao = new ClienteDAO();
+		try {
+			dao.cadastrar(cliente);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void editar() {
+		ClienteDAO clienteDAO = new ClienteDAO();
+		try {
+			clienteDAO.editar(cliente);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Cliente> getListar() {
+		ClienteDAO clienteDAO = new ClienteDAO();
+		pegarCliente = clienteDAO.listarTodos();
+
+		return pegarCliente;
+	}
+
+	public void remover(Long id) {
+		ClienteDAO clienteDAO = new ClienteDAO();
+		try {
+			clienteDAO.excluir(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void consultarPeloId(Long id)
+	{
+		ClienteDAO clienteDAO = new ClienteDAO();
+		try{
+			cliente = clienteDAO.consultar(id);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@PostConstruct
+	public void init() {
+		cliente = new Cliente();
+	}
+
+	public List<Cliente> getPegarCliente() {
+		return pegarCliente;
+	}
+
+	public void setPegarCliente(List<Cliente> pegarCliente) {
+		this.pegarCliente = pegarCliente;
+	}
 
 	public Cliente getCliente() {
 		return cliente;
@@ -26,31 +94,13 @@ public class ClienteBean implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public ListDataModel<Cliente> getPegarCliente() {
-		return pegarCliente;
-	}
+	public Collection<Estados> getEstados() {
 
-	public void setPegarCliente(ListDataModel<Cliente> pegarCliente) {
-		this.pegarCliente = pegarCliente;
-	}
-
-	@PostConstruct
-	public void cadastrar() {
-		preCadastrar();
-		try {
-			ClienteDAO dao = new ClienteDAO();
-			dao.cadastrar(cliente);
-		} catch (Exception e) {
-			e.printStackTrace();
+		SortedMap<String, Estados> map = new TreeMap<String, Estados>();
+		for (Estados e : Estados.values()) {
+			map.put(e.getNome(), e);
 		}
-	}
-
-	public void preCadastrar() {
-		cliente = new Cliente();
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+		return map.values();
 	}
 
 }
