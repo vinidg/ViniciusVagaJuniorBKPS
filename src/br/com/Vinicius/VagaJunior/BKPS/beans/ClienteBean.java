@@ -23,7 +23,6 @@ public class ClienteBean implements Serializable {
 	private Cliente cliente = new Cliente();
 
 	public void cadastrar() {
-
 		ClienteDAO dao = new ClienteDAO();
 		try {
 			dao.cadastrar(cliente);
@@ -55,20 +54,19 @@ public class ClienteBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void consultarPeloId(Long id)
 	{
 		ClienteDAO clienteDAO = new ClienteDAO();
 		try{
-			cliente = clienteDAO.consultar(id);
+			this.cliente = clienteDAO.consultar(id);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -81,7 +79,7 @@ public class ClienteBean implements Serializable {
 	public List<Cliente> getPegarCliente() {
 		return pegarCliente;
 	}
-
+	
 	public void setPegarCliente(List<Cliente> pegarCliente) {
 		this.pegarCliente = pegarCliente;
 	}
@@ -102,5 +100,5 @@ public class ClienteBean implements Serializable {
 		}
 		return map.values();
 	}
-
+	
 }

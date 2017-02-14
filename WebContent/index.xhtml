@@ -4,21 +4,22 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" >
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:t="http://myfaces.apache.org/tomahawk" >
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>BKPS</title>
 </h:head>
 <h:body>
 	<h1>Cadastro de Cliente</h1>
-	<h:form>
+
 	<h:panelGrid columns="1">	
 		<p:dataTable value="#{clienteBean.listar}" var="clientes" 
 						paginator="true" rows="10"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " >
         
 			<p:column headerText="ID">
-	                <h:outputText value="#{clientes.id}" /> 
+	                <h:outputText value="#{clientes.id}"  /> 
 			</p:column>
 			<p:column headerText="Nome">
 	                <h:outputText value="#{clientes.nome}" /> 
@@ -42,32 +43,35 @@
 	                <h:outputText value="#{clientes.estados}" /> 
 			</p:column>
 			<p:column>
-	                <p:commandButton value="Remover" action="#{clienteBean.remover(clientes.id)}" onsuccess="#{clienteBean.listar}" style="width:70px;height:30px;font-size:10px" />
-	                <p:commandButton value="Editar" action="#{clienteBean.consultarPeloId(clientes.id)}" style="width:50px;height:30px;font-size:10px" /> 
+	                <p:commandLink value="Editar" process="@this" update="painel" style="font-size:15px" immediate="true">
+	                	<f:setPropertyActionListener value="#{clientes}" target="#{clienteBean.cliente}" />
+	                </p:commandLink> | 
+	                <p:commandLink value="Remover" action="#{clienteBean.remover(clientes.id)}" onsuccess="#{clienteBean.listar}" style="font-size:15px" />
 			</p:column>
         </p:dataTable> 
-        
 	</h:panelGrid>
-				<h:panelGrid columns="2">
+	<h:form id="painel">
+	<p:inputText value="#{clienteBean.cliente.id}" type="hidden" />
+				<h:panelGrid columns="2" >
 					<p:outputLabel value="Nome: " />
-					<p:inputText id="nome" size="50" maxlength="70" value="#{clienteBean.cliente.nome}" />
+					<p:inputText id="nome" size="50" maxlength="70" value="#{clienteBean.cliente.nome}"/>
 					<p:outputLabel value="Data Nascimento: " />
-					<p:calendar size="20" value="#{clienteBean.cliente.dataNascimento}" />
+					<p:calendar id="dataNascimento" size="20" value="#{clienteBean.cliente.dataNascimento}" />
 					<p:outputLabel value="Telefone: " />
-					<p:inputText size="20" maxlength="9" value="#{clienteBean.cliente.telefone}" />
+					<p:inputText id="telefone" size="20" maxlength="9" value="#{clienteBean.cliente.telefone}" />
 					<p:outputLabel value="Email: " />
-					<p:inputText size="30" maxlength="50" value="#{clienteBean.cliente.email}" />
+					<p:inputText id="email" size="30" maxlength="50" value="#{clienteBean.cliente.email}" />
 					<p:outputLabel value="Endereço: " />
-					<p:inputText size="70" maxlength="80" value="#{clienteBean.cliente.endereco}"/>
+					<p:inputText id="endereco" size="70" maxlength="80" value="#{clienteBean.cliente.endereco}"/>
 					<p:outputLabel value="Cidade: " />
-					<p:inputText size="30" maxlength="20" value="#{clienteBean.cliente.cidade}" />
+					<p:inputText id="cidade" size="30" maxlength="20" value="#{clienteBean.cliente.cidade}" />
 					<p:outputLabel value="Estado: " />
 					<p:selectOneMenu id="estado" value="#{clienteBean.cliente.estados}">
 	 					<f:selectItems var="estado" value="#{clienteBean.estados}" itemValue="#{estado}" itemLabel="#{estado.nome}" />
 					</p:selectOneMenu>
 				<h:panelGrid columns="4">
-						<p:commandButton value="Inserir" action="#{clienteBean.cadastrar}" />
-						<p:commandButton value="Editar" action="#{clienteBean.editar}" />
+						<p:commandButton value="Inserir" action="#{clienteBean.cadastrar}" onsuccess="#{clienteBean.listar}" />
+						<p:commandButton value="Editar" action="#{clienteBean.editar}" onsuccess="#{clienteBean.listar}" />
 				</h:panelGrid>
 			</h:panelGrid>
 	</h:form>

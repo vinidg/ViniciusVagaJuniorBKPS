@@ -29,7 +29,7 @@ public class ClienteDAO {
 
 		try {
 			entityManager.getTransaction().begin();
-			if(consultar(cliente.getId()) == null){
+			if(cliente.getId() == null){
 				entityManager.persist(cliente);
 			}
 			entityManager.getTransaction().commit();
@@ -38,13 +38,13 @@ public class ClienteDAO {
 		}
 		return cliente;
 	}
-	
+
 	public Cliente editar(Cliente cliente) {
 		entityManager = getEntityManager();
 
 		try {
 			entityManager.getTransaction().begin();
-			if(consultar(cliente.getId()) != null){				
+			if(cliente.getId() != null){				
 				entityManager.merge(cliente);
 			}
 			entityManager.getTransaction().commit();
